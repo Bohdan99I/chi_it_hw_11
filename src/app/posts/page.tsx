@@ -1,5 +1,5 @@
 import { getPosts } from '@/services/posts'
-import PostCard from '@/components/posts/PostCard'
+import PostCard from '@/components/Posts/PostCard'
 import Pagination from '@/components/posts/Pagination'
 
 export const dynamic = 'force-dynamic'
