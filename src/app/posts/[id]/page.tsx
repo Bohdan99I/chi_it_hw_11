@@ -1,5 +1,5 @@
 import { getPostById } from '@/services/posts'
-import Comments from '@/components/posts/Comments'
+import Comments from '@/components/Posts/Comments'
 import Image from 'next/image'
 import Link from 'next/link'
 

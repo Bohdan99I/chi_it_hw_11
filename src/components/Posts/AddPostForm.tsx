@@ -20,7 +20,7 @@ export default function AddPostForm() {
       await createPost({
         title: formData.get('title') as string,
         description: formData.get('description') as string,
-        imageUrl: formData.get('imageUrl') as string,
+        image: formData.get('imageUrl') as string,
       })
 
       router.push('/posts')

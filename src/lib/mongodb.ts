@@ -1,5 +1,16 @@
 import mongoose from 'mongoose'
 
+interface MongooseConnection {
+  conn: typeof mongoose | null
+  promise: Promise<typeof mongoose> | null
+}
+
+interface GlobalWithMongoose extends Global {
+  mongoose: MongooseConnection | undefined
+}
+
+declare const global: GlobalWithMongoose
+
 const MONGODB_URI = process.env.MONGODB_URI!
 
 if (!MONGODB_URI) {
@@ -12,7 +23,11 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null }
 }
 
-async function connectDB() {
+async function connectDB(): Promise<typeof mongoose> {
+  if (!cached) {
+    throw new Error('MongoDB cache not initialized')
+  }
+
   if (cached.conn) {
     return cached.conn
   }
@@ -22,9 +37,7 @@ async function connectDB() {
       bufferCommands: false,
     }
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose
-    })
+    cached.promise = mongoose.connect(MONGODB_URI, opts)
   }
 
   try {

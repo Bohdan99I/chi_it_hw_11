@@ -1,6 +1,7 @@
 import { getPosts } from '@/services/posts'
 import PostCard from '@/components/Posts/PostCard'
-import Pagination from '@/components/posts/Pagination'
+import Pagination from '@/components/Posts/Pagination'
+import { Post } from '@/types/post'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,7 +21,7 @@ async function Posts({
       <h1 className="text-3xl font-bold mb-8">Museum Exhibits</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
+        {posts.map((post: Post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>

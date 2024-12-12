@@ -3,6 +3,15 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import connectDB from '@/lib/mongodb'
 import User from '@/models/User'
+import { DefaultSession } from 'next-auth'
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id?: string
+    } & DefaultSession['user']
+  }
+}
 
 const handler = NextAuth({
   providers: [

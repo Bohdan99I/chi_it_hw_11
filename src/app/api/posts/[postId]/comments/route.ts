@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+interface Comment {
+  id: string
+  content: string
+  userId: string
+  postId: string
+  createdAt: Date
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { postId: string } }
@@ -9,7 +17,7 @@ export async function GET(
   
   try {
     // Тут буде логіка отримання коментарів з бази даних
-    const comments = [] // Замініть на реальні дані
+    const comments: Comment[] = [] // Замініть на реальні дані
     return NextResponse.json(comments)
   } catch (error) {
     return NextResponse.json(
@@ -28,12 +36,12 @@ export async function POST(
   try {
     const body = await request.json()
     // Тут буде логіка збереження коментаря в базі даних
-    const comment = {
+    const comment: Comment = {
       id: Date.now().toString(),
       postId,
       content: body.content,
-      author: 'User', // Замініть на реального користувача
-      createdAt: new Date().toISOString()
+      userId: 'User', // Замініть на реального користувача
+      createdAt: new Date()
     }
     
     return NextResponse.json(comment)
